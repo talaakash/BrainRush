@@ -8,6 +8,7 @@ target 'BrainRush' do
   # Pods for BrainRush
   pod 'FirebaseCore'
   pod 'FirebaseFirestore'
+  pod 'SVProgressHUD'
 end
 
 post_install do |installer|
