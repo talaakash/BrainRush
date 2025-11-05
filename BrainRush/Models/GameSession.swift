@@ -17,7 +17,8 @@ class GameSession: Codable {
     @DocumentID var id: String? 
     let players: [String]
     let startTime: Double
-    let data: String?
+    let status: Status
+    let data: String
 }
 
 class Response: Codable {
@@ -35,7 +36,7 @@ class User: Codable {
 
 
 class Questions: Codable {
-    let questions: Question
+    let questions: [Question]
     let suggestions: [String]
 }
 

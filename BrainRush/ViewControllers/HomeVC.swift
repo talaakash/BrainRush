@@ -21,6 +21,10 @@ class HomeVC: UIViewController {
 
 extension HomeVC {
     @IBAction private func newGameBtnTapped(_ sender: UIButton) {
+        if let userName = UserDefaults.standard.string(forKey: "userName") {
+            self.findSession(with: userName)
+            return
+        }
         let alert = UIAlertController(title: "BrainRush", message: "Enter Your Name.", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Your name"
@@ -31,13 +35,8 @@ extension HomeVC {
                 print("⚠️ name is empty")
                 return
             }
-            FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
-                DispatchQueue.main.async {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
-                    vc.gameId = sessionId
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            })
+            UserDefaults.standard.set(userName, forKey: "userName")
+            self.findSession(with: userName)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -45,6 +44,16 @@ extension HomeVC {
         alert.addAction(submitAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true)
+    }
+    
+    private func findSession(with userName: String) {
+        FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
+            DispatchQueue.main.async {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
+                vc.gameId = sessionId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        })
     }
 }
 

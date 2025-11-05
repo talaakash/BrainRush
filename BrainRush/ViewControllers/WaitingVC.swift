@@ -22,6 +22,8 @@ class WaitingVC: UIViewController {
     private var listner: Listner?
     private var waitingTimer: Timer?
     private var questionData: Questions?
+    private var isDownloadingData: Bool = false
+    private var isDataDownloaded: Bool = false
     
     var gameId: String?
     
@@ -34,6 +36,13 @@ class WaitingVC: UIViewController {
         if let id = self.gameId {
             self.listner = FirestoreManager.shared.addSessionListner(for: id) { sessions in
                 self.currentSession = sessions
+                if !self.isDownloadingData {
+                    self.isDownloadingData = true
+                    ApiHelper.shared.callAPI(url: sessions.data, method: .get, successBlock: { data in
+                        self.questionData = try? JSONDecoder().decode(Questions.self, from: data)
+                        self.isDataDownloaded = true
+                    }, failureBlock: { _ in })
+                }
             }
         } else {
             self.navigationController?.popViewController(animated: true)
@@ -53,13 +62,17 @@ class WaitingVC: UIViewController {
                 let previousTime = TimeInterval(floatLiteral: session.startTime)
                 let currentTime = Date().timeIntervalSince1970
                 let elapsed = currentTime - previousTime
-                self.timerLbl.text = "Start in \(30 - elapsed)"
+                self.timerLbl.text = "Start in \(Int(30 - elapsed))"
                 if elapsed >= 30 {
-                    if session.players.count > 1 {
+                    if session.players.count > 1, self.isDataDownloaded {
                         self.waitingTimer?.invalidate()
+                        if let id = session.id, session.players.first == UserDefaults.standard.string(forKey: "userName") {
+                            FirestoreManager.shared.updateSessionStatus(withID: id, status: .active)
+                        }
                         DispatchQueue.main.async {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: GameVC.self)) as! GameVC
                             vc.gameSession = session
+                            vc.questions = self.questionData
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     } else {

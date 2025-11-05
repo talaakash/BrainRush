@@ -37,6 +37,67 @@ final class FirestoreManager {
         }
     }
     
+    func updateSessionStatus(withID sessionID: String, status: Status, error: (((Error?) -> Void))? = nil) {
+        db.collection("gameSessions").document(sessionID).updateData(["status": status.rawValue]) { updateError in
+            error?(updateError)
+        }
+    }
+    
+    func deleteSession(withID sessionID: String, completion: ((Bool) -> Void)? = nil) {
+        db.collection("gameSessions").document(sessionID).delete { error in
+            if let error = error {
+                print("❌ Deletion error for \(sessionID): \(error.localizedDescription)")
+                completion?(false)
+            } else {
+                print("✅ Session \(sessionID) deleted successfully.")
+                completion?(true)
+            }
+        }
+    }
+    
+    func addSessionListner(for sessionID: String, completion: @escaping ((GameSession) -> Void)) -> Listner {
+        return db.collection("gameSessions").document(sessionID).addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                print("❌ Document listener error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot, document.exists else {
+                print("⚠️ Document not found or deleted")
+                return
+            }
+            
+            do {
+                completion(try document.data(as: GameSession.self))
+            } catch {
+                print("⚠️ Decoding error: \(error)")
+            }
+        }
+    }
+    
+    func submitResponse(sessionId: String, questionId: Int, userName: String, answer: String, timeTaken: Double) {
+        let ref = Firestore.firestore().collection("gameSessions").document(sessionId).collection("questions").document("\(questionId)")
+        
+        let newResponse: [String: Any] = [
+            "name": userName,
+            "answer": answer,
+            "time": timeTaken
+        ]
+        
+        ref.setData([
+            "questionId": questionId,
+            "responses": FieldValue.arrayUnion([newResponse])
+        ], merge: true) { error in
+            if let error = error {
+                print("⚠️ Firestore error: \(error.localizedDescription)")
+            } else {
+                print("✅ Created/Updated document for question \(questionId)")
+            }
+        }
+    }
+}
+
+extension FirestoreManager {
     private func createNewSession(for userName: String, completion: @escaping (String?) -> Void) {
         let sessionsRef = db.collection("gameSessions")
         
@@ -69,38 +130,6 @@ final class FirestoreManager {
             } else {
                 print("✅ Player \(playerName) joined session \(sessionID)")
                 completion(sessionID)
-            }
-        }
-    }
-    
-    func deleteSession(withID sessionID: String, completion: ((Bool) -> Void)? = nil) {
-        db.collection("gameSessions").document(sessionID).delete { error in
-            if let error = error {
-                print("❌ Deletion error for \(sessionID): \(error.localizedDescription)")
-                completion?(false)
-            } else {
-                print("✅ Session \(sessionID) deleted successfully.")
-                completion?(true)
-            }
-        }
-    }
-    
-    func addSessionListner(for sessionID: String, completion: @escaping ((GameSession) -> Void)) -> Listner {
-        return db.collection("gameSessions").document(sessionID).addSnapshotListener { documentSnapshot, error in
-            if let error = error {
-                print("❌ Document listener error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let document = documentSnapshot, document.exists else {
-                print("⚠️ Document not found or deleted")
-                return
-            }
-            
-            do {
-                completion(try document.data(as: GameSession.self))
-            } catch {
-                print("⚠️ Decoding error: \(error)")
             }
         }
     }
