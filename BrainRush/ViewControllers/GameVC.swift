@@ -48,6 +48,9 @@ class GameVC: UIViewController {
             if self.gameDuration == 0 {
                 self.gameTimer?.invalidate()
                 self.gameTimer = nil
+                if let id = self.gameSession?.id, self.gameSession?.players.first == UserDefaults.standard.string(forKey: "userName") {
+                    FirestoreManager.shared.updateSessionStatus(withID: id, status: .completed)
+                }
                 DispatchQueue.main.async {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: ScoreboardVC.self)) as! ScoreboardVC
                     vc.gameSession = self.gameSession

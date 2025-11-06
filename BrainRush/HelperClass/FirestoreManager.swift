@@ -118,7 +118,7 @@ final class FirestoreManager {
                     completion(responses)
                 } catch {
                     print("⚠️ Decoding error: \(error.localizedDescription)")
-                    completion([])
+                    completion(nil)
                 }
             }
         })
