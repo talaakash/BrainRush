@@ -30,7 +30,7 @@ class Response: Codable {
 class User: Codable {
     let name: String
     let answer: String
-    let time: String
+    let time: Double
 }
 
 
@@ -44,4 +44,14 @@ class Question: Codable {
     let id: Int
     let question: String
     let answer: String
+}
+
+class Score {
+    let name: String
+    let score: Int
+    
+    init(name: String, score: Int) {
+        self.name = name
+        self.score = score
+    }
 }

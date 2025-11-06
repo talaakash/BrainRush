@@ -10,6 +10,7 @@ import UIKit
 class GameVC: UIViewController {
     
     @IBOutlet private weak var questionLbl: UILabel!
+    @IBOutlet private weak var timerLbl: UILabel!
     @IBOutlet private weak var answerTxt: UITextField!
     @IBOutlet private weak var suggestionsTbl: UITableView!
     
@@ -26,6 +27,8 @@ class GameVC: UIViewController {
     
     private var questionIndex: Int = -1
     private var questionInteval: TimeInterval = 0.0
+    private var gameDuration: Int = 60
+    private var gameTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +42,25 @@ class GameVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showNextQuestion()
+        gameTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.gameDuration -= 1
+            self.timerLbl.text = "Ends in: \(self.gameDuration)"
+            if self.gameDuration == 0 {
+                self.gameTimer?.invalidate()
+                self.gameTimer = nil
+                DispatchQueue.main.async {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: ScoreboardVC.self)) as! ScoreboardVC
+                    vc.gameSession = self.gameSession
+                    vc.questions = self.questions
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.gameTimer?.invalidate()
     }
 }
 

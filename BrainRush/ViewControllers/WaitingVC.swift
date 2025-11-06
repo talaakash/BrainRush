@@ -7,6 +7,7 @@
 
 import UIKit
 internal import FirebaseFirestoreInternal
+import SVProgressHUD
 
 class WaitingVC: UIViewController {
     
@@ -34,7 +35,9 @@ class WaitingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let id = self.gameId {
+            SVProgressHUD.show()
             self.listner = FirestoreManager.shared.addSessionListner(for: id) { sessions in
+                SVProgressHUD.dismiss()
                 self.currentSession = sessions
                 if !self.isDownloadingData {
                     self.isDownloadingData = true

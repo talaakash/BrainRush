@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class HomeVC: UIViewController {
     
@@ -15,7 +16,13 @@ class HomeVC: UIViewController {
     }
 
     private func doInitSetup() {
-        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+}
+
+extension HomeVC: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        self.navigationController?.viewControllers.count ?? 0 > 1
     }
 }
 
@@ -47,8 +54,10 @@ extension HomeVC {
     }
     
     private func findSession(with userName: String) {
+        SVProgressHUD.show()
         FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
                 vc.gameId = sessionId
                 self.navigationController?.pushViewController(vc, animated: true)

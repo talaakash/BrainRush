@@ -76,7 +76,7 @@ final class FirestoreManager {
     }
     
     func submitResponse(sessionId: String, questionId: Int, userName: String, answer: String, timeTaken: Double) {
-        let ref = Firestore.firestore().collection("gameSessions").document(sessionId).collection("questions").document("\(questionId)")
+        let ref = db.collection("gameSessions").document(sessionId).collection("questions").document("\(questionId)")
         
         let newResponse: [String: Any] = [
             "name": userName,
@@ -95,6 +95,35 @@ final class FirestoreManager {
             }
         }
     }
+    
+    func getAllResponses(sessionId: String, completion: @escaping (([Response]?) -> Void)) {
+        db.collection("gameSessions").document(sessionId).collection("questions").getDocuments(completion: {
+            snapshot, error in
+                if let error = error {
+                    print("❌ Query error: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+            guard let document = snapshot?.documents else {
+                print("⚠️ Document not found or deleted")
+                return
+            }
+            
+            Task { @MainActor in
+                do {
+                    let responses = try document.map { doc in
+                        try doc.data(as: Response.self)
+                    }
+                    completion(responses)
+                } catch {
+                    print("⚠️ Decoding error: \(error.localizedDescription)")
+                    completion([])
+                }
+            }
+        })
+    }
+    
 }
 
 extension FirestoreManager {
