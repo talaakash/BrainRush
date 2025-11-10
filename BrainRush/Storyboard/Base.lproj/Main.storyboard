@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,13 +49,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting......" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xho-1e-2L7">
-                                <rect key="frame" x="16" y="134" width="361" height="24"/>
+                                <rect key="frame" x="16" y="184.33333333333334" width="361" height="24"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-Lw-LU9">
-                                <rect key="frame" x="16" y="174" width="361" height="594"/>
+                                <rect key="frame" x="16" y="224.33333333333331" width="361" height="543.66666666666674"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameSessionCell" id="FHG-2l-ya7" customClass="GameSessionCell" customModule="BrainRush" customModuleProvider="target">
@@ -106,15 +107,27 @@
                                     <outlet property="delegate" destination="mlM-cc-eZR" id="NyO-Lc-s3X"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKN-bk-EgM">
+                                <rect key="frame" x="8" y="134" width="76.333333333333329" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back" imagePadding="2">
+                                    <imageReference key="image" image="chevron.left" catalog="system" symbolScale="medium"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backBtnTapped:" destination="mlM-cc-eZR" eventType="touchUpInside" id="OSu-Vg-YdK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gpv-Ng-BR4"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="mKN-bk-EgM" firstAttribute="top" secondItem="gpv-Ng-BR4" secondAttribute="top" constant="16" id="LwN-Fw-vIv"/>
                             <constraint firstItem="fC1-Lw-LU9" firstAttribute="top" secondItem="Xho-1e-2L7" secondAttribute="bottom" constant="16" id="UfT-7C-kfU"/>
                             <constraint firstItem="gpv-Ng-BR4" firstAttribute="bottom" secondItem="fC1-Lw-LU9" secondAttribute="bottom" constant="16" id="UkB-nV-CLc"/>
                             <constraint firstItem="gpv-Ng-BR4" firstAttribute="trailing" secondItem="Xho-1e-2L7" secondAttribute="trailing" constant="16" id="Ymw-Un-F2T"/>
+                            <constraint firstItem="Xho-1e-2L7" firstAttribute="top" secondItem="mKN-bk-EgM" secondAttribute="bottom" constant="16" id="eVP-OJ-BKD"/>
+                            <constraint firstItem="mKN-bk-EgM" firstAttribute="leading" secondItem="gpv-Ng-BR4" secondAttribute="leading" constant="8" id="h3h-4e-n7J"/>
                             <constraint firstItem="Xho-1e-2L7" firstAttribute="leading" secondItem="gpv-Ng-BR4" secondAttribute="leading" constant="16" id="lse-9U-0mp"/>
-                            <constraint firstItem="Xho-1e-2L7" firstAttribute="top" secondItem="gpv-Ng-BR4" secondAttribute="top" constant="16" id="m9B-EV-Xv7"/>
                             <constraint firstItem="gpv-Ng-BR4" firstAttribute="trailing" secondItem="fC1-Lw-LU9" secondAttribute="trailing" constant="16" id="ppv-xH-xtj"/>
                             <constraint firstItem="fC1-Lw-LU9" firstAttribute="leading" secondItem="gpv-Ng-BR4" secondAttribute="leading" constant="16" id="vbW-gn-2ed"/>
                         </constraints>
@@ -372,4 +385,7 @@
             <point key="canvasLocation" x="138.1679389312977" y="130.98591549295776"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
+    </resources>
 </document>

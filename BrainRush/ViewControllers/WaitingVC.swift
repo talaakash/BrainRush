@@ -14,7 +14,14 @@ class WaitingVC: UIViewController {
     @IBOutlet private weak var waitingPlayerName: UITableView!
     @IBOutlet private weak var timerLbl: UILabel!
     
-    private var currentSession: GameSession? {
+//    private var currentSession: GameSession? {
+//        didSet {
+//            self.waitingPlayerName.reloadData()
+//            self.handleTimer()
+//        }
+//    }
+    private var currentSession: Game?
+    private var playerNames: [String] = [] {
         didSet {
             self.waitingPlayerName.reloadData()
             self.handleTimer()
@@ -36,17 +43,29 @@ class WaitingVC: UIViewController {
         super.viewWillAppear(animated)
         if let id = self.gameId {
             SVProgressHUD.show()
-            self.listner = FirestoreManager.shared.addSessionListner(for: id) { sessions in
+//            self.listner = FirestoreManager.shared.addSessionListner(for: id) { sessions in
+//                SVProgressHUD.dismiss()
+//                self.currentSession = sessions
+//                if !self.isDownloadingData {
+//                    self.isDownloadingData = true
+//                    ApiHelper.shared.callAPI(url: sessions.data, method: .get, successBlock: { data in
+//                        self.questionData = try? JSONDecoder().decode(Questions.self, from: data)
+//                        self.isDataDownloaded = true
+//                    }, failureBlock: { _ in })
+//                }
+//            }
+            FirebaseManager.shared.listenSessionStatus(sessionId: id, onChange: { gameSession in
                 SVProgressHUD.dismiss()
-                self.currentSession = sessions
+                self.currentSession = gameSession
+                self.playerNames = gameSession.players.map { $0.key }
                 if !self.isDownloadingData {
                     self.isDownloadingData = true
-                    ApiHelper.shared.callAPI(url: sessions.data, method: .get, successBlock: { data in
+                    ApiHelper.shared.callAPI(url: gameSession.questionUrl, method: .get, successBlock: { data in
                         self.questionData = try? JSONDecoder().decode(Questions.self, from: data)
                         self.isDataDownloaded = true
                     }, failureBlock: { _ in })
                 }
-            }
+            })
         } else {
             self.navigationController?.popViewController(animated: true)
         }
@@ -54,23 +73,25 @@ class WaitingVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.listner?.remove()
-        self.listner = nil
+//        self.listner?.remove()
+//        self.listner = nil
+        FirebaseManager.shared.stopListening()
     }
     
     private func handleTimer() {
         waitingTimer?.invalidate()
         waitingTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             if let session = self.currentSession {
-                let previousTime = TimeInterval(floatLiteral: session.startTime)
+                let previousTime = TimeInterval(floatLiteral: session.startTime ?? 0)
                 let currentTime = Date().timeIntervalSince1970
                 let elapsed = currentTime - previousTime
                 self.timerLbl.text = "Start in \(Int(30 - elapsed))"
                 if elapsed >= 30 {
                     if session.players.count > 1, self.isDataDownloaded {
                         self.waitingTimer?.invalidate()
-                        if let id = session.id, session.players.first == UserDefaults.standard.string(forKey: "userName") {
-                            FirestoreManager.shared.updateSessionStatus(withID: id, status: .active)
+                        if session.hostId == UserDefaults.standard.string(forKey: "userName") {
+//                            FirestoreManager.shared.updateSessionStatus(withID: id, status: .active)
+                            FirebaseManager.shared.updateSessionStatus(.active)
                         }
                         DispatchQueue.main.async {
                             let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: GameVC.self)) as! GameVC
@@ -98,14 +119,25 @@ class WaitingVC: UIViewController {
     }
 }
 
+extension WaitingVC {
+    @IBAction private func backBtnTapped(_ sender: UIButton) {
+        if let id = self.currentSession?.id {
+            FirebaseManager.shared.removePlayer(from: id, playerId: UserDefaults.standard.string(forKey: "userName")!)
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 extension WaitingVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        currentSession?.players.count ?? 0
+//        currentSession?.players.count ?? 0
+        playerNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameSessionCell", for: indexPath) as! GameSessionCell
-        cell.sessionNameLbl.text = self.currentSession?.players[indexPath.row]
+//        cell.sessionNameLbl.text = self.currentSession?.players[indexPath.row]
+        cell.sessionNameLbl.text = self.playerNames[indexPath.row]
         return cell
     }
 }

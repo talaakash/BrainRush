@@ -14,7 +14,8 @@ class GameVC: UIViewController {
     @IBOutlet private weak var answerTxt: UITextField!
     @IBOutlet private weak var suggestionsTbl: UITableView!
     
-    var gameSession: GameSession?
+//    var gameSession: GameSession?
+    var gameSession: Game?
     var questions: Questions?
     
     var suggestions: [String] = [] {
@@ -48,8 +49,9 @@ class GameVC: UIViewController {
             if self.gameDuration == 0 {
                 self.gameTimer?.invalidate()
                 self.gameTimer = nil
-                if let id = self.gameSession?.id, self.gameSession?.players.first == UserDefaults.standard.string(forKey: "userName") {
-                    FirestoreManager.shared.updateSessionStatus(withID: id, status: .completed)
+                if self.gameSession?.hostId == UserDefaults.standard.string(forKey: "userName") {
+//                    FirestoreManager.shared.updateSessionStatus(withID: id, status: .completed)
+                    FirebaseManager.shared.updateSessionStatus(.completed)
                 }
                 DispatchQueue.main.async {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: ScoreboardVC.self)) as! ScoreboardVC
@@ -82,7 +84,8 @@ extension GameVC {
     @IBAction private func submitBtnTapped(_ sender: UIButton) {
         guard let id = gameSession?.id, let questionId = self.questions?.questions[self.questionIndex].id, let text = self.answerTxt.text, !text.isEmpty else { return }
         let interval = Date().timeIntervalSince1970 - self.questionInteval
-        FirestoreManager.shared.submitResponse(sessionId: id, questionId: questionId, userName: UserDefaults.standard.string(forKey: "userName")!, answer: text, timeTaken: Double(interval))
+//        FirestoreManager.shared.submitResponse(sessionId: id, questionId: questionId, userName: UserDefaults.standard.string(forKey: "userName")!, answer: text, timeTaken: Double(interval))
+        FirebaseManager.shared.submitAnswers(userId: UserDefaults.standard.string(forKey: "userName")!, answers: [["qid": questionId, "answer": text, "time": Double(interval)]])
         self.showNextQuestion()
     }
     

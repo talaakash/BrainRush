@@ -14,7 +14,8 @@ class ScoreboardVC: UIViewController {
     
     private var responses: [Response] = []
     var questions: Questions?
-    var gameSession: GameSession?
+//    var gameSession: GameSession?
+    var gameSession: Game?
     
     private var scores: [Score] = []
     
@@ -26,21 +27,46 @@ class ScoreboardVC: UIViewController {
     private func doInitSetup() {
         guard let id = gameSession?.id, let questions = questions?.questions else { return }
         SVProgressHUD.show()
-        FirestoreManager.shared.getAllResponses(sessionId: id, completion: { responses in
-            self.responses = responses ?? []
+//        FirestoreManager.shared.getAllResponses(sessionId: id, completion: { responses in
+//            self.responses = responses ?? []
+//            let answerMap = Dictionary(uniqueKeysWithValues: questions.map { ($0.id, $0.answer.lowercased()) })
+//            
+//            var userScores: [String: Int] = [:]
+//            for response in self.responses {
+//                guard let correctAnswer = answerMap[response.questionId] else { continue }
+//                
+//                for user in response.responses {
+//                    if user.answer.lowercased() == correctAnswer {
+//                        userScores[user.name, default: 0] += 1
+//                    }
+//                }
+//            }
+//            self.scores = userScores.map { Score(name: $0.key, score: $0.value) }
+//            DispatchQueue.main.async {
+//                SVProgressHUD.dismiss()
+//                self.scoreTbl.reloadData()
+//            }
+//        })
+        FirebaseManager.shared.listenSessionStatus(sessionId: id, onChange: { gameSession in
             let answerMap = Dictionary(uniqueKeysWithValues: questions.map { ($0.id, $0.answer.lowercased()) })
             
-            var userScores: [String: Int] = [:]
-            for response in self.responses {
-                guard let correctAnswer = answerMap[response.questionId] else { continue }
+            var scores: [Score] = []
+            
+            for (_, playerData) in gameSession.players {
+                var correctCount = 0
                 
-                for user in response.responses {
-                    if user.answer.lowercased() == correctAnswer {
-                        userScores[user.name, default: 0] += 1
+                for answer in playerData.answers {
+                    // Safely retrieve correct answer
+                    if let correctAnswer = answerMap[answer.qid],
+                       correctAnswer == answer.answer.lowercased() {
+                        correctCount += 1
                     }
                 }
+                
+                let playerScore = Score(name: playerData.name, score: correctCount)
+                scores.append(playerScore)
             }
-            self.scores = userScores.map { Score(name: $0.key, score: $0.value) }
+            self.scores = scores
             DispatchQueue.main.async {
                 SVProgressHUD.dismiss()
                 self.scoreTbl.reloadData()

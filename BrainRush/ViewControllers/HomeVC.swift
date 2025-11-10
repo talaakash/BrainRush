@@ -55,12 +55,26 @@ extension HomeVC {
     
     private func findSession(with userName: String) {
         SVProgressHUD.show()
-        FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
-            DispatchQueue.main.async {
-                SVProgressHUD.dismiss()
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
-                vc.gameId = sessionId
-                self.navigationController?.pushViewController(vc, animated: true)
+//        FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
+//            DispatchQueue.main.async {
+//                SVProgressHUD.dismiss()
+//                let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
+//                vc.gameId = sessionId
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }
+//        })
+        
+        FirebaseManager.shared.findOrCreateSession(userId: userName, completion: { result in
+            switch result {
+            case .success(let gameSession):
+                DispatchQueue.main.async {
+                    SVProgressHUD.dismiss()
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
+                    vc.gameId = gameSession
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                debugPrint("Error: \(error.localizedDescription)")
             }
         })
     }
