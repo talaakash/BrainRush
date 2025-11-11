@@ -1,0 +1,998 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which planet is known as the Red Planet?",
+      "answers": [
+        {
+          "id": 1,
+          "answer": "Mars",
+          "points": 5
+        },
+        {
+          "id": 2,
+          "answer": "Red Planet",
+          "points": 4
+        },
+        {
+          "id": 3,
+          "answer": "Fourth Planet",
+          "points": 3
+        },
+        {
+          "id": 4,
+          "answer": "Iron Planet",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "What is the largest mammal on Earth?",
+      "answers": [
+        {
+          "id": 5,
+          "answer": "Blue Whale",
+          "points": 5
+        },
+        {
+          "id": 6,
+          "answer": "Marine Giant",
+          "points": 4
+        },
+        {
+          "id": 7,
+          "answer": "Ocean Beast",
+          "points": 3
+        },
+        {
+          "id": 8,
+          "answer": "Huge Whale",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Who developed the theory of relativity?",
+      "answers": [
+        {
+          "id": 9,
+          "answer": "Albert Einstein",
+          "points": 5
+        },
+        {
+          "id": 10,
+          "answer": "Einstein",
+          "points": 4
+        },
+        {
+          "id": 11,
+          "answer": "Theory Genius",
+          "points": 3
+        },
+        {
+          "id": 12,
+          "answer": "Physics Master",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "What gas do plants release during photosynthesis?",
+      "answers": [
+        {
+          "id": 13,
+          "answer": "Oxygen",
+          "points": 5
+        },
+        {
+          "id": 14,
+          "answer": "O2",
+          "points": 4
+        },
+        {
+          "id": 15,
+          "answer": "Fresh Air",
+          "points": 3
+        },
+        {
+          "id": 16,
+          "answer": "Life Gas",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Which is the smallest prime number?",
+      "answers": [
+        {
+          "id": 17,
+          "answer": "2",
+          "points": 5
+        },
+        {
+          "id": 18,
+          "answer": "Two",
+          "points": 4
+        },
+        {
+          "id": 19,
+          "answer": "First Prime",
+          "points": 3
+        },
+        {
+          "id": 20,
+          "answer": "Even Prime",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Which ocean is the largest on Earth?",
+      "answers": [
+        {
+          "id": 21,
+          "answer": "Pacific Ocean",
+          "points": 5
+        },
+        {
+          "id": 22,
+          "answer": "Pacific",
+          "points": 4
+        },
+        {
+          "id": 23,
+          "answer": "Big Ocean",
+          "points": 3
+        },
+        {
+          "id": 24,
+          "answer": "Great Pacific",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "What is the capital city of Japan?",
+      "answers": [
+        {
+          "id": 25,
+          "answer": "Tokyo",
+          "points": 5
+        },
+        {
+          "id": 26,
+          "answer": "Tokyo City",
+          "points": 4
+        },
+        {
+          "id": 27,
+          "answer": "Japanese Capital",
+          "points": 3
+        },
+        {
+          "id": 28,
+          "answer": "Mega City",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Who painted the Mona Lisa?",
+      "answers": [
+        {
+          "id": 29,
+          "answer": "Leonardo Vinci",
+          "points": 5
+        },
+        {
+          "id": 30,
+          "answer": "Da Vinci",
+          "points": 4
+        },
+        {
+          "id": 31,
+          "answer": "Leonardo",
+          "points": 3
+        },
+        {
+          "id": 32,
+          "answer": "Art Genius",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Which element has chemical symbol O?",
+      "answers": [
+        {
+          "id": 33,
+          "answer": "Oxygen",
+          "points": 5
+        },
+        {
+          "id": 34,
+          "answer": "Air Element",
+          "points": 4
+        },
+        {
+          "id": 35,
+          "answer": "Breath Gas",
+          "points": 3
+        },
+        {
+          "id": 36,
+          "answer": "Life Element",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Which continent is the largest?",
+      "answers": [
+        {
+          "id": 37,
+          "answer": "Asia",
+          "points": 5
+        },
+        {
+          "id": 38,
+          "answer": "Asian Continent",
+          "points": 4
+        },
+        {
+          "id": 39,
+          "answer": "Big Asia",
+          "points": 3
+        },
+        {
+          "id": 40,
+          "answer": "Mainland Asia",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "question": "Which metal is liquid at room temperature?",
+      "answers": [
+        {
+          "id": 41,
+          "answer": "Mercury",
+          "points": 5
+        },
+        {
+          "id": 42,
+          "answer": "Liquid Metal",
+          "points": 4
+        },
+        {
+          "id": 43,
+          "answer": "Hg",
+          "points": 3
+        },
+        {
+          "id": 44,
+          "answer": "Shiny Metal",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "question": "Which is the fastest land animal?",
+      "answers": [
+        {
+          "id": 45,
+          "answer": "Cheetah",
+          "points": 5
+        },
+        {
+          "id": 46,
+          "answer": "Speed Cat",
+          "points": 4
+        },
+        {
+          "id": 47,
+          "answer": "Fast Cat",
+          "points": 3
+        },
+        {
+          "id": 48,
+          "answer": "Wild Runner",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "question": "Which gas do humans exhale?",
+      "answers": [
+        {
+          "id": 49,
+          "answer": "Carbon Dioxide",
+          "points": 5
+        },
+        {
+          "id": 50,
+          "answer": "CO2",
+          "points": 4
+        },
+        {
+          "id": 51,
+          "answer": "Exhaled Gas",
+          "points": 3
+        },
+        {
+          "id": 52,
+          "answer": "Respired Gas",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "question": "What is H2O commonly known as?",
+      "answers": [
+        {
+          "id": 53,
+          "answer": "Water",
+          "points": 5
+        },
+        {
+          "id": 54,
+          "answer": "Pure Water",
+          "points": 4
+        },
+        {
+          "id": 55,
+          "answer": "Liquid Water",
+          "points": 3
+        },
+        {
+          "id": 56,
+          "answer": "Fresh Water",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "question": "What color are bananas when ripe?",
+      "answers": [
+        {
+          "id": 57,
+          "answer": "Yellow",
+          "points": 5
+        },
+        {
+          "id": 58,
+          "answer": "Bright Yellow",
+          "points": 4
+        },
+        {
+          "id": 59,
+          "answer": "Golden",
+          "points": 3
+        },
+        {
+          "id": 60,
+          "answer": "Light Yellow",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "question": "Which bird cannot fly?",
+      "answers": [
+        {
+          "id": 61,
+          "answer": "Ostrich",
+          "points": 5
+        },
+        {
+          "id": 62,
+          "answer": "Penguin",
+          "points": 4
+        },
+        {
+          "id": 63,
+          "answer": "Flightless Bird",
+          "points": 3
+        },
+        {
+          "id": 64,
+          "answer": "Emu",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "question": "Which animal is known as the King of the Jungle?",
+      "answers": [
+        {
+          "id": 65,
+          "answer": "Lion",
+          "points": 5
+        },
+        {
+          "id": 66,
+          "answer": "African Lion",
+          "points": 4
+        },
+        {
+          "id": 67,
+          "answer": "Big Cat",
+          "points": 3
+        },
+        {
+          "id": 68,
+          "answer": "Savanna King",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "question": "Which organ pumps blood in the human body?",
+      "answers": [
+        {
+          "id": 69,
+          "answer": "Heart",
+          "points": 5
+        },
+        {
+          "id": 70,
+          "answer": "Human Heart",
+          "points": 4
+        },
+        {
+          "id": 71,
+          "answer": "Main Pump",
+          "points": 3
+        },
+        {
+          "id": 72,
+          "answer": "Cardiac Organ",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "question": "Which instrument measures temperature?",
+      "answers": [
+        {
+          "id": 73,
+          "answer": "Thermometer",
+          "points": 5
+        },
+        {
+          "id": 74,
+          "answer": "Temp Gauge",
+          "points": 4
+        },
+        {
+          "id": 75,
+          "answer": "Heat Meter",
+          "points": 3
+        },
+        {
+          "id": 76,
+          "answer": "Temp Tool",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "question": "Which month has 28 days?",
+      "answers": [
+        {
+          "id": 77,
+          "answer": "February",
+          "points": 5
+        },
+        {
+          "id": 78,
+          "answer": "Feb",
+          "points": 4
+        },
+        {
+          "id": 79,
+          "answer": "Leap Month",
+          "points": 3
+        },
+        {
+          "id": 80,
+          "answer": "Short Month",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "question": "What device is used to call people?",
+      "answers": [
+        {
+          "id": 81,
+          "answer": "Phone",
+          "points": 5
+        },
+        {
+          "id": 82,
+          "answer": "Mobile",
+          "points": 4
+        },
+        {
+          "id": 83,
+          "answer": "Cell Phone",
+          "points": 3
+        },
+        {
+          "id": 84,
+          "answer": "Smartphone",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "question": "What is the hardest natural substance?",
+      "answers": [
+        {
+          "id": 85,
+          "answer": "Diamond",
+          "points": 5
+        },
+        {
+          "id": 86,
+          "answer": "Pure Diamond",
+          "points": 4
+        },
+        {
+          "id": 87,
+          "answer": "Crystal Carbon",
+          "points": 3
+        },
+        {
+          "id": 88,
+          "answer": "Hard Gem",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "question": "Which planet is closest to the Sun?",
+      "answers": [
+        {
+          "id": 89,
+          "answer": "Mercury",
+          "points": 5
+        },
+        {
+          "id": 90,
+          "answer": "First Planet",
+          "points": 4
+        },
+        {
+          "id": 91,
+          "answer": "Hot Planet",
+          "points": 3
+        },
+        {
+          "id": 92,
+          "answer": "Inner Planet",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "question": "Which organ helps in breathing?",
+      "answers": [
+        {
+          "id": 93,
+          "answer": "Lungs",
+          "points": 5
+        },
+        {
+          "id": 94,
+          "answer": "Human Lungs",
+          "points": 4
+        },
+        {
+          "id": 95,
+          "answer": "Air Organ",
+          "points": 3
+        },
+        {
+          "id": 96,
+          "answer": "Breath Lungs",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "question": "Which is the tallest animal?",
+      "answers": [
+        {
+          "id": 97,
+          "answer": "Giraffe",
+          "points": 5
+        },
+        {
+          "id": 98,
+          "answer": "Long Neck",
+          "points": 4
+        },
+        {
+          "id": 99,
+          "answer": "Tall Animal",
+          "points": 3
+        },
+        {
+          "id": 100,
+          "answer": "Safari Giant",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "question": "Which vehicle runs on rails?",
+      "answers": [
+        {
+          "id": 101,
+          "answer": "Train",
+          "points": 5
+        },
+        {
+          "id": 102,
+          "answer": "Rail Train",
+          "points": 4
+        },
+        {
+          "id": 103,
+          "answer": "Metro",
+          "points": 3
+        },
+        {
+          "id": 104,
+          "answer": "Locomotive",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "question": "Which color is formed by mixing red and blue?",
+      "answers": [
+        {
+          "id": 105,
+          "answer": "Purple",
+          "points": 5
+        },
+        {
+          "id": 106,
+          "answer": "Violet",
+          "points": 4
+        },
+        {
+          "id": 107,
+          "answer": "Magenta",
+          "points": 3
+        },
+        {
+          "id": 108,
+          "answer": "Lavender",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "question": "Which natural satellite orbits the Earth?",
+      "answers": [
+        {
+          "id": 109,
+          "answer": "Moon",
+          "points": 5
+        },
+        {
+          "id": 110,
+          "answer": "Earth Moon",
+          "points": 4
+        },
+        {
+          "id": 111,
+          "answer": "Luna",
+          "points": 3
+        },
+        {
+          "id": 112,
+          "answer": "Night Orb",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "question": "Which fruit keeps the doctor away?",
+      "answers": [
+        {
+          "id": 113,
+          "answer": "Apple",
+          "points": 5
+        },
+        {
+          "id": 114,
+          "answer": "Red Apple",
+          "points": 4
+        },
+        {
+          "id": 115,
+          "answer": "Green Apple",
+          "points": 3
+        },
+        {
+          "id": 116,
+          "answer": "Juicy Apple",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "question": "Which celestial body provides light to Earth?",
+      "answers": [
+        {
+          "id": 117,
+          "answer": "Sun",
+          "points": 5
+        },
+        {
+          "id": 118,
+          "answer": "Solar Star",
+          "points": 4
+        },
+        {
+          "id": 119,
+          "answer": "Bright Sun",
+          "points": 3
+        },
+        {
+          "id": 120,
+          "answer": "Day Star",
+          "points": 2
+        }
+      ]
+    }
+  ],
+  "suggestions": [
+    "Mars",
+    "Red Planet",
+    "Fourth planet",
+    "Iron planet",
+    "Mercury",
+    "Jupiter",
+    "Venus",
+    "Earth",
+    "Blue Whale",
+    "Whale",
+    "Antarctic Whale",
+    "Huge Whale",
+    "Marine Giant",
+    "Shark",
+    "Dolphin",
+    "Orca",
+    "Albert Einstein",
+    "Einstein",
+    "Physicist Einstein",
+    "Theory Master",
+    "Isaac Newton",
+    "Stephen Hawking",
+    "Galileo",
+    "Oxygen",
+    "O2",
+    "Fresh Air",
+    "Life Gas",
+    "Carbon Dioxide",
+    "Nitrogen",
+    "Hydrogen",
+    "2",
+    "Two",
+    "First Prime",
+    "Even Prime",
+    "Three",
+    "Five",
+    "Seven",
+    "Pacific Ocean",
+    "Pacific",
+    "Big Ocean",
+    "Great Pacific",
+    "Atlantic Ocean",
+    "Indian Ocean",
+    "Arctic Ocean",
+    "Tokyo",
+    "Tokyo City",
+    "Japanese Capital",
+    "Mega City",
+    "Osaka",
+    "Kyoto",
+    "Seoul",
+    "Leonardo Vinci",
+    "Da Vinci",
+    "Leonardo",
+    "Art Genius",
+    "Michelangelo",
+    "Raphael",
+    "Van Gogh",
+    "Oxygen",
+    "O",
+    "Air Element",
+    "Breath Gas",
+    "Life Element",
+    "Carbon",
+    "Nitrogen",
+    "Asia",
+    "Asian Continent",
+    "Big Asia",
+    "Mainland Asia",
+    "Africa",
+    "Europe",
+    "America",
+    "Mercury",
+    "Liquid Metal",
+    "Hg",
+    "Shiny Metal",
+    "Gallium",
+    "Sodium",
+    "Iron",
+    "Cheetah",
+    "Speed Cat",
+    "Fast Cat",
+    "Wild Runner",
+    "Leopard",
+    "Tiger",
+    "Horse",
+    "Carbon Dioxide",
+    "CO2",
+    "Exhaled Gas",
+    "Respired Gas",
+    "Oxygen",
+    "Nitrogen",
+    "Methane",
+    "Water",
+    "H2O",
+    "Pure Water",
+    "Liquid Water",
+    "Fresh Water",
+    "Aqua",
+    "Rainwater",
+    "Yellow",
+    "Bright Yellow",
+    "Golden",
+    "Light Yellow",
+    "Green",
+    "Brown",
+    "Ripe Yellow",
+    "Ostrich",
+    "Penguin",
+    "Flightless Bird",
+    "Emu",
+    "Kiwi",
+    "Dodo",
+    "Peacock",
+    "Lion",
+    "African Lion",
+    "Big Cat",
+    "Savanna King",
+    "Tiger",
+    "Panther",
+    "Leopard",
+    "Heart",
+    "Human Heart",
+    "Main Pump",
+    "Cardiac Organ",
+    "Lungs",
+    "Brain",
+    "Kidney",
+    "Thermometer",
+    "Temp Gauge",
+    "Heat Meter",
+    "Temp Tool",
+    "Barometer",
+    "Hygrometer",
+    "Speedometer",
+    "February",
+    "Feb",
+    "Leap Month",
+    "Short Month",
+    "March",
+    "April",
+    "All Months",
+    "Phone",
+    "Mobile",
+    "Cell Phone",
+    "Smartphone",
+    "Telephone",
+    "Landline",
+    "Receiver",
+    "Diamond",
+    "Pure Diamond",
+    "Crystal Carbon",
+    "Hard Gem",
+    "Gold",
+    "Platinum",
+    "Emerald",
+    "Mercury",
+    "First Planet",
+    "Hot Planet",
+    "Inner Planet",
+    "Venus",
+    "Earth",
+    "Mars",
+    "Lungs",
+    "Human Lungs",
+    "Air Organ",
+    "Breath Lungs",
+    "Heart",
+    "Nose",
+    "Diaphragm",
+    "Giraffe",
+    "Long Neck",
+    "Tall Animal",
+    "Safari Giant",
+    "Elephant",
+    "Camel",
+    "Ostrich",
+    "Train",
+    "Rail Train",
+    "Metro",
+    "Locomotive",
+    "Bullet Train",
+    "Subway",
+    "Tram",
+    "Purple",
+    "Violet",
+    "Magenta",
+    "Lavender",
+    "Indigo",
+    "Lilac",
+    "Plum",
+    "Moon",
+    "Earth Moon",
+    "Luna",
+    "Night Orb",
+    "Satellite",
+    "Celestial Body",
+    "Moonlight",
+    "Apple",
+    "Red Apple",
+    "Green Apple",
+    "Juicy Apple",
+    "Fruit",
+    "Mango",
+    "Banana",
+    "Sun",
+    "Solar Star",
+    "Bright Sun",
+    "Day Star",
+    "Star",
+    "Sunlight",
+    "Solar Light"
+  ]
+}

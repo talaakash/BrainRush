@@ -12,12 +12,12 @@ class ScoreboardVC: UIViewController {
 
     @IBOutlet private weak var scoreTbl: UITableView!
     
-    private var responses: [Response] = []
-    var questions: Questions?
-//    var gameSession: GameSession?
     var gameSession: Game?
-    
-    private var scores: [Score] = []
+    private var scores: [Score] = [] { 
+        didSet {
+            self.scoreTbl.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,53 +25,49 @@ class ScoreboardVC: UIViewController {
     }
     
     private func doInitSetup() {
-        guard let id = gameSession?.id, let questions = questions?.questions else { return }
-        SVProgressHUD.show()
-//        FirestoreManager.shared.getAllResponses(sessionId: id, completion: { responses in
-//            self.responses = responses ?? []
-//            let answerMap = Dictionary(uniqueKeysWithValues: questions.map { ($0.id, $0.answer.lowercased()) })
-//            
-//            var userScores: [String: Int] = [:]
-//            for response in self.responses {
-//                guard let correctAnswer = answerMap[response.questionId] else { continue }
-//                
-//                for user in response.responses {
-//                    if user.answer.lowercased() == correctAnswer {
-//                        userScores[user.name, default: 0] += 1
-//                    }
-//                }
-//            }
-//            self.scores = userScores.map { Score(name: $0.key, score: $0.value) }
-//            DispatchQueue.main.async {
-//                SVProgressHUD.dismiss()
-//                self.scoreTbl.reloadData()
-//            }
-//        })
-        FirebaseManager.shared.listenSessionStatus(sessionId: id, onChange: { gameSession in
-            let answerMap = Dictionary(uniqueKeysWithValues: questions.map { ($0.id, $0.answer.lowercased()) })
-            
-            var scores: [Score] = []
-            
-            for (_, playerData) in gameSession.players {
-                var correctCount = 0
-                
-                for answer in playerData.answers {
-                    // Safely retrieve correct answer
-                    if let correctAnswer = answerMap[answer.qid],
-                       correctAnswer == answer.answer.lowercased() {
-                        correctCount += 1
-                    }
-                }
-                
-                let playerScore = Score(name: playerData.name, score: correctCount)
-                scores.append(playerScore)
-            }
-            self.scores = scores
-            DispatchQueue.main.async {
-                SVProgressHUD.dismiss()
-                self.scoreTbl.reloadData()
+        FirebaseManager.shared.fetchAllQuestionAnswers(sessionId: gameSession!.id!, completion: { result in
+            switch result {
+            case .success(let success):
+                self.calculateScore(with: success)
+                break
+            case .failure(let failure):
+                debugPrint("Error: \(failure.localizedDescription)")
+                break
             }
         })
+    }
+}
+
+extension ScoreboardVC {
+    private func calculateScore(with allQuestionAnswers: [QuestionAnswers]) {
+        var userScores: [String: Int] = [:]
+        
+        for questionData in allQuestionAnswers {
+            var allSubmissions: [(uid: String, answerId: Int, points: Int, time: Double)] = []
+            
+            for (uid, answers) in questionData.submissions {
+                for ans in answers {
+                    allSubmissions.append((uid, ans.answerId, ans.points, ans.time))
+                }
+            }
+            
+            // Group all submissions by answerId and reward the first responder
+            let grouped = Dictionary(grouping: allSubmissions, by: { $0.answerId })
+            
+            for (_, submissions) in grouped {
+                if let fastest = submissions.min(by: { $0.time < $1.time }) {
+                    userScores[fastest.uid, default: 0] += fastest.points
+                }
+            }
+        }
+        
+        // Convert dictionary to Score model array
+        let scores = userScores.map { key, value in
+            Score(name: key, score: value)
+        }
+        
+        // Optional: sort descending by score
+        self.scores = scores.sorted { $0.score > $1.score }
     }
 }
 
@@ -83,7 +79,7 @@ extension ScoreboardVC {
 
 extension ScoreboardVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        scores.count
+        self.scores.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

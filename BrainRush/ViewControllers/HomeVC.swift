@@ -8,6 +8,8 @@
 import UIKit
 import SVProgressHUD
 
+var questions: Questions!
+
 class HomeVC: UIViewController {
     
     override func viewDidLoad() {
@@ -17,6 +19,11 @@ class HomeVC: UIViewController {
 
     private func doInitSetup() {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        if let fileUrl = Bundle.main.url(forResource: "QuestionSuggestions", withExtension: "json"), let data = try? Data(contentsOf: fileUrl), let obj = try? JSONDecoder().decode(Questions.self, from: data) {
+            questions = obj
+        } else {
+            exit(-1)
+        }
     }
 }
 
@@ -55,28 +62,21 @@ extension HomeVC {
     
     private func findSession(with userName: String) {
         SVProgressHUD.show()
-//        FirestoreManager.shared.findOrCreateSession(for: userName, completion: { sessionId in
-//            DispatchQueue.main.async {
-//                SVProgressHUD.dismiss()
-//                let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
-//                vc.gameId = sessionId
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }
-//        })
-        
-        FirebaseManager.shared.findOrCreateSession(userId: userName, completion: { result in
+        FirebaseManager.shared.currentUid = userName
+        let questionIds = Array(questions.questions.map { $0.id }.shuffled().prefix(3))
+        FirebaseManager.shared.findOrCreateSession(with: questionIds) { result in
+            SVProgressHUD.dismiss()
             switch result {
-            case .success(let gameSession):
+            case .success(let sessionID):
                 DispatchQueue.main.async {
-                    SVProgressHUD.dismiss()
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: String(describing: WaitingVC.self)) as! WaitingVC
-                    vc.gameId = gameSession
+                    let vc = self.storyboard?.instantiateViewController(identifier: String(describing: WaitingVC.self)) as! WaitingVC
+                    vc.sessionId = sessionID
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             case .failure(let error):
-                debugPrint("Error: \(error.localizedDescription)")
+                self.showAlert(message: "Error: \(error.localizedDescription)")
             }
-        })
+        }
     }
 }
 
